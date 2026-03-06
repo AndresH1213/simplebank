@@ -1,3 +1,5 @@
+DB_URL=postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
+
 postgres:
 	docker run --name go-course-postgres --network bank-network -p 5432:5432 -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=secret -d postgres:16.12-alpine3.22
 
@@ -8,16 +10,16 @@ dropdb:
 	docker exec -it go-course-postgres dropdb --username=postgres --owner=postgres simple_bank
 
 migrateup:
-	migrate -path db/migration -database "postgresql://postgres:WUaFBqEUwhz6BAfTpLmx@simple-bank.cbeai2swszbn.us-east-2.rds.amazonaws.com:5432/simple_bank" up
+	migrate -path db/migration -database "$(DB_URL)" up
 
 migrateup1:
-	migrate -path db/migration -database "postgresql://postgres:WUaFBqEUwhz6BAfTpLmx@simple-bank.cbeai2swszbn.us-east-2.rds.amazonaws.com:5432/simple_bank" up 1
+	migrate -path db/migration -database "$(DB_URL)" up 1
 
 migratedown:
-	migrate -path db/migration -database "postgresql://postgres:WUaFBqEUwhz6BAfTpLmx@simple-bank.cbeai2swszbn.us-east-2.rds.amazonaws.com:5432/simple_bank" down
+	migrate -path db/migration -database "$(DB_URL)" down
 
 migratedown1:
-	migrate -path db/migration -database "postgresql://postgres:WUaFBqEUwhz6BAfTpLmx@simple-bank.cbeai2swszbn.us-east-2.rds.amazonaws.com:5432/simple_bank" down 1
+	migrate -path db/migration -database "$(DB_URL)" down 1
 
 sqlc:
 	sqlc generate
