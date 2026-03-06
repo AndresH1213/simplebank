@@ -1,4 +1,4 @@
-DB_URL=postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
+DB_URL=postgresql://postgres:secret@localhost:5432/simple_bank?sslmode=disable
 
 postgres:
 	docker run --name go-course-postgres --network bank-network -p 5432:5432 -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=secret -d postgres:16.12-alpine3.22
