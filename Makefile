@@ -8,16 +8,16 @@ dropdb:
 	docker exec -it go-course-postgres dropdb --username=postgres --owner=postgres simple_bank
 
 migrateup:
-	migrate -path db/migration -database "postgresql://postgres:secret@localhost:5432/simple_bank?sslmode=disable" up
+	migrate -path db/migration -database "postgresql://postgres:WUaFBqEUwhz6BAfTpLmx@simple-bank.cbeai2swszbn.us-east-2.rds.amazonaws.com:5432/simple_bank" up
 
 migrateup1:
-	migrate -path db/migration -database "postgresql://postgres:secret@localhost:5432/simple_bank?sslmode=disable" up 1
+	migrate -path db/migration -database "postgresql://postgres:WUaFBqEUwhz6BAfTpLmx@simple-bank.cbeai2swszbn.us-east-2.rds.amazonaws.com:5432/simple_bank" up 1
 
 migratedown:
-	migrate -path db/migration -database "postgresql://postgres:secret@localhost:5432/simple_bank?sslmode=disable" down
+	migrate -path db/migration -database "postgresql://postgres:WUaFBqEUwhz6BAfTpLmx@simple-bank.cbeai2swszbn.us-east-2.rds.amazonaws.com:5432/simple_bank" down
 
 migratedown1:
-	migrate -path db/migration -database "postgresql://postgres:secret@localhost:5432/simple_bank?sslmode=disable" down 1
+	migrate -path db/migration -database "postgresql://postgres:WUaFBqEUwhz6BAfTpLmx@simple-bank.cbeai2swszbn.us-east-2.rds.amazonaws.com:5432/simple_bank" down 1
 
 sqlc:
 	sqlc generate
