@@ -1,5 +1,5 @@
 postgres:
-	docker run --name go-course-postgres -p 5432:5432 -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=secret -d postgres:16.12-alpine3.22
+	docker run --name go-course-postgres --network bank-network -p 5432:5432 -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=secret -d postgres:16.12-alpine3.22
 
 createdb:
 	docker exec -it go-course-postgres createdb --username=postgres --owner=postgres simple_bank
@@ -10,8 +10,14 @@ dropdb:
 migrateup:
 	migrate -path db/migration -database "postgresql://postgres:secret@localhost:5432/simple_bank?sslmode=disable" up
 
+migrateup1:
+	migrate -path db/migration -database "postgresql://postgres:secret@localhost:5432/simple_bank?sslmode=disable" up 1
+
 migratedown:
 	migrate -path db/migration -database "postgresql://postgres:secret@localhost:5432/simple_bank?sslmode=disable" down
+
+migratedown1:
+	migrate -path db/migration -database "postgresql://postgres:secret@localhost:5432/simple_bank?sslmode=disable" down 1
 
 sqlc:
 	sqlc generate
@@ -22,4 +28,10 @@ test:
 test-no-cache:
 	go test -v -cover -count=1 ./...
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test test-no-cache
+server:
+	go run main.go
+
+mock:
+	mockgen -package mockdb -destination db/mock/store.go github.com/AndresH1213/simplebank/db/sqlc Store
+
+.PHONY: postgres createdb dropdb migrateup migrateup1 migratedown migratedown1 sqlc test test-no-cache server mock
