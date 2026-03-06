@@ -36,10 +36,7 @@ jobs:
         which migrate
 
     - name: run migrations
-      env:
-        DB_SOURCE: postgresql://postgres:secret@localhost:5432/simple_bank?sslmode=disable
-      run: |
-      make migrateup DB_SOURCE=$(DB_SOURCE)
+      run: make migrateup
 
     - name: Set up Go
       uses: actions/setup-go@v5
