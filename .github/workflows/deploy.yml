@@ -23,7 +23,7 @@ jobs:
         uses: azure/setup-kubectl@v4
         id: install
         with:
-          version: '1.34.0'
+          version: v1.35.0
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
