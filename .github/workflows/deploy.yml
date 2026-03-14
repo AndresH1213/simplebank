@@ -49,7 +49,7 @@ jobs:
       
       - name: Set kubeconfig
         run: |
-          aws eks update-kubeconfig --region us-east-1 --name simplebank
+          aws eks update-kubeconfig --region us-east-1 --name simple-bank
       
       - name: Desploy image to Amazon EKS
         run: |
