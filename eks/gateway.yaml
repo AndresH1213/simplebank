@@ -1,0 +1,26 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: simplebank-gateway
+spec:
+  gatewayClassName: nginx
+  listeners:
+  - protocol: HTTP
+    port: 80
+    name: http
+    allowedRoutes:
+      namespaces:
+        from: Same
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: simplebank-http-route
+spec:
+  parentRefs:
+  - name: simplebank-gateway
+    sectionName: http
+  rules:
+  - backendRefs:
+    - name: simplebank-api-service
+      port: 80
